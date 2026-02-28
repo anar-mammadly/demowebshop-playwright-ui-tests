@@ -23,16 +23,13 @@ test.describe('Place order with multiple products and validate prices', () => {
     const onepage = new OnePageCheckoutPage(page);
     const register = new RegistrationPage(page);
 
-    // 🔥 0) Yeni user yarat
     await register.open();
     const email = await register.registerRandomUser();
     console.log("REGISTERED:", email);
 
-    // 🔥 1) Login yeni userlə
     await login.login(email, process.env.DEFAULT_PASSWORD!);
 
 
-    // 🔥 2) Məhsulları əlavə et
     for (const item of products) {
       await home.openProduct(item.name);
 
@@ -46,18 +43,14 @@ test.describe('Place order with multiple products and validate prices', () => {
       await page.goto('/');
     }
 
-    // 🔥 3) Cart səhifəsinə keç
     await cart.openCart();
 
-    // 🔥 4) Qiymət doğrulaması
     for (let i = 0; i < products.length; i++) {
       await cart.assertPriceCalculation(i);
     }
 
-    // 🔥 5) Terms qəbul et + Checkout
     await cart.acceptTermsAndCheckout();
 
-    // 🔥 6) One Page Checkout step-ləri
     await onepage.fillBillingAddress();
     
     await onepage.continueShippingAddress();
@@ -65,10 +58,8 @@ test.describe('Place order with multiple products and validate prices', () => {
     await onepage.continuePaymentMethod();
     await onepage.continuePaymentInfo();
 
-    // 🔥 7) Order təsdiqi
     await checkout.confirmOrder();
 
-    // 🔥 8) Uğurlu mesaj
     const message = await checkout.getSuccessMessage();
     console.log("SUCCESS:", message);
 
