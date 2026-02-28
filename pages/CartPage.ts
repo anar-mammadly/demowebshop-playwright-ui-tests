@@ -6,7 +6,6 @@ export class CartPage extends BasePage {
     super(page);
   }
 
-  // ✔ Yalnız sağ üst Shopping Cart linki
   cartLink = this.page.locator('a.ico-cart').first();
 
   productRows = this.page.locator('.cart-item-row');

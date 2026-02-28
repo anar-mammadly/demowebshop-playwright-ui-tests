@@ -6,7 +6,6 @@ export class HomePage extends BasePage {
     super(page);
   }
 
-  // Ana səhifə və kateqoriya səhifələrində məhsulun adını tapmaq üçün ən stabil locator
   productLink(name: string) {
     return this.page.locator('.product-title a', { hasText: name });
   }

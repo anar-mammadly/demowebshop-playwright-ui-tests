@@ -25,7 +25,6 @@ export class OnePageCheckoutPage extends BasePage {
 
   async fillBillingAddress() {
 
-    // ❗ Dropdown varsa amma içində address yoxdursa → yenisi doldur
     if (await this.existingAddressDropdown.isVisible()) {
       const options = await this.existingAddressDropdown.locator('option').count();
 
@@ -36,7 +35,6 @@ export class OnePageCheckoutPage extends BasePage {
       }
     }
 
-    // ❗ Əks halda yeni address formu doldur
     await this.firstName.fill('Anar');
     await this.lastName.fill('Mammadov');
     await this.email.fill(`anarmammadly+${Date.now()}@gmail.com`);
